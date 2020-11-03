@@ -1,0 +1,13 @@
+[
+    {
+        "id": "1",
+        "day": "Monday",
+        "task": "Studying"
+    },
+    {
+        "id": "2",
+        "day": "Thuesday",
+        "task": "Work"
+        
+    }
+]
