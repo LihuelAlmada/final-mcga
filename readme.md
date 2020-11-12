@@ -1,4 +1,4 @@
-# Name of proyect: "Altas Notas"
+# Nombre del proyecto: "Altas Notas"
 
 ###### web program to develop
 
