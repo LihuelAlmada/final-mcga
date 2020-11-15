@@ -1,3 +1,5 @@
+//Modelo, definimos que datos guardamos
+
 const { Router } = require('express');
 const router = Router();
 const _ = require('underscore');
