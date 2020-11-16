@@ -2,7 +2,10 @@ const { Schema, model } = require('mongoose');
 
 const noteSchema = new Schema({
     id : Number,
-    day : Date,
+    date: {
+        type: Date,
+        default: new Date()
+    },
     creator : String,
     title : String,
     description : String
