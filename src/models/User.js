@@ -1,17 +1,22 @@
 const { Schema, model } = require('mongoose')
-
+//recordar no agregar ID
 const userSchema = new Schema({
-    username: {
+    userName: {
         type: String,
         unique: true,
         required: true
     },
     password: String,
-    date: {
+    firstName: String,
+    lastName: String,
+    email: String,
+
+    birthday: {
         type: Date,
         default: new Date()
     },
-    name: String
+    city: String,
+    phoneNumber: Number,
 })
 
 module.exports = model('User', userSchema);

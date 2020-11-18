@@ -1,12 +1,11 @@
 const { Schema, model } = require('mongoose');
-
+//Sin ID en el Screma NO AGREGARLO
 const noteSchema = new Schema({
-    id : Number,
+    creator : String,
     date: {
         type: Date,
         default: new Date()
     },
-    creator : String,
     title : String,
     description : String
 })
