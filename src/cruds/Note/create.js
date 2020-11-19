@@ -18,7 +18,30 @@ const createNotes = async () => {
         description: 'comprar cerveza'
     })
         await secondnote.save();
-   console.log(firstnote, secondnote)
+    
+    const thirdnote = new Note({
+        id: 3,
+        creator: 'Tomas',
+        title: 'base de datos',
+        description: 'agregar DB'
+    })
+        await thirdnote.save();
+
+    const fournote = new Note({
+        id: 4,
+        creator: 'Pablo',
+        title: 'heroku',
+        description: 'subir app' 
+    })
+        await fournote.save();
+    
+    const fivenote= new Note ({
+        id: 5,
+        creator: 'Leandro',
+        title: 'alto partido',
+        description: 'Mirar partido de futbol' 
+    })
+        await fivenote.save();
 }
 
 createNotes();
