@@ -1,13 +1,11 @@
-const { Schema, model } = require('mongoose');
-//Sin ID en el Screma NO AGREGARLO
-const noteSchema = new Schema({
-    creator : String,
-    date: {
-        type: Date,
-        default: new Date()
-    },
-    title : String,
-    description : String
+const mongoose = require('mongoose')
+
+
+const noteSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    creator: {type: String, required: true},
+    title: {type: String, required: true},
+    description: {type: String, required: true}
 })
 
-module.exports = model('Note', noteSchema)
+module.exports = mongoose.model('Note', noteSchema)
