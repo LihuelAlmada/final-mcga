@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         res.send('peticion error');
     }
 
-    res.send('recibido');
+    res.send('received');
 });
 
 router.put('/:id', (req, res) => {
