@@ -1,52 +1,53 @@
-const express = require('express')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import path from 'path';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import config from './config';
+
+// routes
+import authRoutes from './routes/auth';
+import itemRoutes from './routes/notes';
+import userRoutes from './routes/users';
+
+const { MONGO_URI, MONGO_DB_NAME } = config;
 
 const app = express();
 
-const notesRoutes = require('./api/routes/notes')
+// CORS Middleware
+app.use(cors());
+// Logger Middleware
+app.use(morgan('dev'));
+// Bodyparser Middleware
+app.use(bodyParser.json());
 
-mongoose.connect(
-    'mongodb+srv://fernando:' + process.env.MONGO_ATLAS_PW + '@cluster-mcga.dc5pi.mongodb.net/<dbname>?retryWrites=true&w=majority',
-    {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    }
-)
+// DB Config
+const db = `${MONGO_URI}/${MONGO_DB_NAME}`;
 
-app.use(morgan('dev'))
+// Connect to Mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  }) // Adding new mongo url parser
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
-app.use(bodyParser.json())
+// Use Routes
+app.use('/api/items', itemRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Acces-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept, Autorization')
-    if (req.method === 'OPTIONS') {
-        res.header('Acces-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
-        return res.status(200).json({})
-    }
-    next();
-})
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
 
-app.use('/notes', notesRoutes)
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
-app.use((req, res, next) => {
-    const error = new Error('Not found')
-    error.status = 404
-    next(error)
-})
-
-app.use((error, req, res, next) => {
-    res.status(error.status || 500)
-    res.json({
-        error: {
-            message: error.message
-        }
-    })
-})
-
-module.exports = app
+export default app;
