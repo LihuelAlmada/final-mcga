@@ -8,7 +8,7 @@ import config from './config';
 
 // routes
 import authRoutes from './routes/auth';
-import itemRoutes from './routes/notes';
+import notesRoutes from './routes/notes';
 import userRoutes from './routes/users';
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
@@ -36,7 +36,7 @@ mongoose
   .catch(err => console.log(err));
 
 // Use Routes
-app.use('/api/items', itemRoutes);
+app.use('/api/notes', notesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
