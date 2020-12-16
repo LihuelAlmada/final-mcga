@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import auth from '../../middleware/auth';
-// Item Model
+// Note Model
 import Note from '../models/Note';
 
 const router = Router();
@@ -51,8 +51,8 @@ router.post('/', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id);
-    if (!item) throw Error('No item found');
+    const note = await Item.findById(req.params.id);
+    if (!note) throw Error('No note found');
 
     const removed = await item.remove();
     if (!removed)
