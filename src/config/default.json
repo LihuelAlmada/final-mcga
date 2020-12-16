@@ -1,0 +1,5 @@
+{
+    "mongoURI": "mongodb+srv://fernando:1234@cluster-mcga.dc5pi.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret": "sl_myJwtSecret"
+  }
+  
