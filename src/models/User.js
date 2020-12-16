@@ -1,22 +1,26 @@
-const { Schema, model } = require('mongoose')
-//recordar no agregar ID
-const userSchema = new Schema({
-    userName: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    password: String,
-    firstName: String,
-    lastName: String,
-    email: String,
+import { Schema, model } from 'mongoose';
 
-    birthday: {
-        type: Date,
-        default: new Date()
-    },
-    city: String,
-    phoneNumber: Number,
-})
+// Create Schema
+const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  register_date: {
+    type: Date,
+    default: Date.now
+  }
+});
 
-module.exports = model('User', userSchema);
+const User = model('user', UserSchema);
+
+export default User;
